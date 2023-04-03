@@ -1,5 +1,6 @@
 package example;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 //출력대상 : 도서명, 저자, 역자, 출판사, 출간일, 정가, 판매가, 할인율, 적립금
@@ -98,82 +99,91 @@ public class EX04 {
 //        다. 사용자가 입력한 복권 숫자가 모두 일치 : 상금 1백만 지급
 //        라. 일치하지 않는 경우 : “아쉽지만, 다음 기회를!” 라고 출력
 
+        int[] yourkey = new int[3];
         System.out.println("0~9 사이 첫번째 숫자를 입력하세요.");
-        int yourkey1 = sc.nextInt();
+        yourkey[0] = sc.nextInt();
         System.out.println("0~9 사이 두번째 숫자를 입력하세요.");
-        int yourkey2 = sc.nextInt();
+        yourkey[1] = sc.nextInt();
         System.out.println("0~9 사이 세번째 숫자를 입력하세요.");
-        int yourkey3 = sc.nextInt();
+        yourkey[2] = sc.nextInt();
+        Arrays.sort(yourkey);
 
-        if(yourkey1/10 != 0 || yourkey2/10 != 0 || yourkey3/10 != 0 ) {
-            System.out.println("한자리 정수를 입력하세요.");
-        } else {
             Random rand = new Random();
 
+        int[] lottokey = new int[3];
 //            int lottokey1 = rand.nextInt(10);
 //            int lottokey2 = rand.nextInt(10);
 //            int lottokey3 = rand.nextInt(10);
-            int lottokey1 = 2;
-            int lottokey2 = 3;
-            int lottokey3 = 4;
+            lottokey[0] = 2;
+            lottokey[1] = 3;
+            lottokey[2] = 4;
+        Arrays.sort(lottokey);
 
-            if(yourkey1 == lottokey1) { // 1==1
-                if(yourkey2 == lottokey2) { // 1==1,2==2
-                    if(yourkey3 == lottokey3) { // 1==1,2==2,3==3
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    } else { // 1==1,2==2,3!=3 3낙첨.
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    }
-                } else if(yourkey2 == lottokey3) { // 1==1,2==3
-                    if(yourkey3 == lottokey2) {// 1==1,2==3,3==2
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    } else { // 1==1, 2==3, 3!=2 3낙첨
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    }
-                } else{ // 1==1, 2 낙첨
-                    System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                }
-
-            } else if(yourkey1 == lottokey2){ // 1==2
-                if(yourkey2 == lottokey1) { // 1==2, 2==1
-                    if(yourkey3 == lottokey3) { // 1==2, 2==1, 3==3
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    } else { // 1==2, 2==1, 3!=3 3 낙첨
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    }
-                } else if(yourkey2 == lottokey3){ // 1==2, 2==3
-                    if(yourkey3 == lottokey1) { // 1==2, 2==3, 3==1
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    } else { // 1==2, 2==3, 3!=1 낙첨
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    }
-                } else { // 1==2, 2 낙첨
-                    System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                }
-            } else if(yourkey1 == lottokey3) { // 1==3
-                if(yourkey2 == lottokey1) { // 1==3, 2==1
-                    if(yourkey3 == lottokey2) { // 1==3, 2==1, 3==2
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    } else { // 1==3, 2==1, 3!=2
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    }
-                } else if(yourkey2 == lottokey2){ // 1==3, 2==2
-                    if(yourkey3 == lottokey1) { // 1==3, 2==2, 3==1
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    } else {// 1==3, 2==2, 3!=1
-                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                    }
-                } else { // 1==3, 2 낙첨.
-                    System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-                }
-
-            } else { // 1 낙첨
-                System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
-            }
-
-
-
+        if(Arrays.equals(yourkey,lottokey)) {
+            System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey[0],yourkey[1],yourkey[2],lottokey[0],lottokey[1],lottokey[2]);
+        } else {
+            System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey[0],yourkey[1],yourkey[2],lottokey[0],lottokey[1],lottokey[2]);
         }
+
+
+
+//            if(yourkey1 == lottokey1) { // 1==1
+//                if(yourkey2 == lottokey2) { // 1==1,2==2
+//                    if(yourkey3 == lottokey3) { // 1==1,2==2,3==3
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    } else { // 1==1,2==2,3!=3 3낙첨.
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    }
+//                } else if(yourkey2 == lottokey3) { // 1==1,2==3
+//                    if(yourkey3 == lottokey2) {// 1==1,2==3,3==2
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    } else { // 1==1, 2==3, 3!=2 3낙첨
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    }
+//                } else{ // 1==1, 2 낙첨
+//                    System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                }
+//
+//            } else if(yourkey1 == lottokey2){ // 1==2
+//                if(yourkey2 == lottokey1) { // 1==2, 2==1
+//                    if(yourkey3 == lottokey3) { // 1==2, 2==1, 3==3
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    } else { // 1==2, 2==1, 3!=3 3 낙첨
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    }
+//                } else if(yourkey2 == lottokey3){ // 1==2, 2==3
+//                    if(yourkey3 == lottokey1) { // 1==2, 2==3, 3==1
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    } else { // 1==2, 2==3, 3!=1 낙첨
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    }
+//                } else { // 1==2, 2 낙첨
+//                    System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                }
+//            } else if(yourkey1 == lottokey3) { // 1==3
+//                if(yourkey2 == lottokey1) { // 1==3, 2==1
+//                    if(yourkey3 == lottokey2) { // 1==3, 2==1, 3==2
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    } else { // 1==3, 2==1, 3!=2
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    }
+//                } else if(yourkey2 == lottokey2){ // 1==3, 2==2
+//                    if(yourkey3 == lottokey1) { // 1==3, 2==2, 3==1
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 당첨! 100만원 지급! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    } else {// 1==3, 2==2, 3!=1
+//                        System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                    }
+//                } else { // 1==3, 2 낙첨.
+//                    System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//                }
+//
+//            } else { // 1 낙첨
+//                System.out.printf("당신이 선택한 키 %d,%d,%d. 추첨키 %d,%d,%d. 다음 기회를! \n",yourkey1,yourkey2,yourkey3,lottokey1,lottokey2,lottokey3);
+//            }
+
+
+
+
 
 
 
