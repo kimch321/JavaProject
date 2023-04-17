@@ -1,6 +1,6 @@
 package example;
 
-import kimch.SungJukVO;
+import project.sungjuk.model.SungJukVO;
 
 import java.util.Scanner;
 

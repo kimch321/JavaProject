@@ -1,4 +1,6 @@
-package kimch;
+package project.bookmarket;
+
+import project.MemberShip;
 
 import java.util.Scanner;
 

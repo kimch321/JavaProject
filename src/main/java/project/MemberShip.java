@@ -1,4 +1,4 @@
-package kimch;
+package project;
 
 public class MemberShip {
     private int mno;

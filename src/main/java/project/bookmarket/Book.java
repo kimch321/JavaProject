@@ -1,4 +1,4 @@
-package kimch;
+package project.bookmarket;
 
 public class Book {
     private String isbn;

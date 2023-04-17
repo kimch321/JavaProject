@@ -1,4 +1,4 @@
-package kimch;
+package project.sungjuk.model;
 
 public class SungJukVO {
     private String name;
@@ -17,6 +17,13 @@ public class SungJukVO {
         this.kor = kor;
         this.eng = eng;
         this.mat = mat;
+    }
+
+    public SungJukVO(String name, int kor, int eng, int mat, int tot, double avg, char grd) {
+        this(name, kor, eng, mat);
+        this.tot = tot;
+        this.avg = avg;
+        this.grd = grd;
     }
 
     public String getName() {
