@@ -3,18 +3,25 @@ package kimch;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class J28JDBC {
+public class J29JDBC {
     private static String DRV = "org.mariadb.jdbc.Driver";
     private static String URL = "jdbc:mariadb://fullstacks.csgna22pwwig.ap-northeast-2.rds.amazonaws.com:3306/fullstacks";
     private static String USR = "admin";
     private static String PWD = "fullstack_2023";
 
-    private static String selectBookSQL = "select * from NEWBOOKS order by bookno desc";
+    private static String selectBookSQL =
+            "select * from NEWBOOKS where title like ? order by bookno desc";
 
     public static void main(String[] args) {
-        // newbooks 테이블의 모든 레코드 조회
+        // newbooks 테이블에서 도서명에 'IT CookBook'이 포함된 레코드 조회
         List<Book> bookdata = new ArrayList<>();
+
+        // 검색할 도서명을 입력받음
+        Scanner sc = new Scanner(System.in);
+        System.out.println("조회할 도서명은? ");
+        String findbook = sc.nextLine();
 
         try {
             Class.forName(DRV);
@@ -29,6 +36,7 @@ public class J28JDBC {
         try {
             conn = DriverManager.getConnection(URL, USR, PWD);
             pstmt = conn.prepareStatement(selectBookSQL);
+            pstmt.setString(1, "%"+ findbook +"%");
 
             // SQL문 실행 후 결과집합 받음
             rs = pstmt.executeQuery();  // DML 실행시 사용
@@ -51,70 +59,5 @@ public class J28JDBC {
             System.out.println(b);
         }
 
-    }
-}
-
-class Book {
-    private int bookno;
-    private String title;
-    private String writer;
-    private int price;
-    private String regdate;
-
-    public Book() {
-    }
-
-    public Book(int bookno, String title, String writer, int price, String regdate) {
-        this.bookno = bookno;
-        this.title = title;
-        this.writer = writer;
-        this.price = price;
-        this.regdate = regdate;
-    }
-
-    public int getBookno() {
-        return bookno;
-    }
-
-    public void setBookno(int bookno) {
-        this.bookno = bookno;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getRegdate() {
-        return regdate;
-    }
-
-    public void setRegdate(String regdate) {
-        this.regdate = regdate;
-    }
-
-    @Override
-    public String toString() {
-        String fmt = "%d %s %s %d %s";
-        return String.format(fmt, bookno, title, writer, price, regdate);
     }
 }

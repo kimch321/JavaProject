@@ -20,6 +20,7 @@ public class J26JDBC {
     // JDBC드라이버들은 제조사 홈페이지에서
     // 내려받을 수 있음
     public static void main(String[] args) {
+
         // 1. JDBC 드라이버를 메모리에 적재
         try {
             Class.forName("org.mariadb.jdbc.Driver");
@@ -40,7 +41,7 @@ public class J26JDBC {
         } catch (SQLException e) {
             System.out.println("디비 접속주소나 아이디/비번을 확인하세요!!");
         } finally {
-            if (conn != null) try { conn.close(); } catch (Exception ex) {}
+            J32JDBCUtil.closeConn(null,null,conn);
         }
     }
 }
