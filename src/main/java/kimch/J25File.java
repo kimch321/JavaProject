@@ -1,4 +1,4 @@
-package zzyzzy;
+package kimch;
 
 import java.io.*;
 
