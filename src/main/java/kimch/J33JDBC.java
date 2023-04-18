@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class J33JDBC {
     public static void main(String[] args) {
         EMPVO emp = new EMPVO(207, "steven","jobs","apple@app.com","515.123.8080","2002-06-07 00:00:00.000","AC_MGR",12008,0.2,101,110);
+
     }
 }
 
@@ -148,15 +149,17 @@ class EMPVO {
 
 
     class EMPDAOImpl {
-        private static String insertEmpSQL = " insert into employees values (?,?,?,?,?, ?,?,?,?,?, ?) ";
+        private static String insertEmpSQL = " insert into EMPLOYEES values (?,?,?,?,?, ?,?,?,?,?, ?) ";
 
         private static String selectEmpSQL =
-                " select employee_id, first_name, email, job_id, department_id " +
-                        " from employees order by employee_id ";
+                " select EMPLOYEE_ID, FIRST_NAME, EMAIL, JOB_ID, DEPARTMENT_ID " +
+                        " from EMPLOYEES order by EMPLOYEE_ID ";
 
-        private static String selectOneEmpSQL = " select * from employees where employee_id = ? ";
+        private static String selectOneEmpSQL = " select * from EMPLOYEES where EMPLOYEE_ID = ? ";
 
-        private static String deleteEmpSQL = " delete from employees where employee_id = ? ";
+        private static String updateEmpSQL = "update EMPLOYEES set FIRST_NAME = ?, LAST_NAME = ?, EMAIL = ? , PHONE_NUMBER = ?WHERE EMPLOYEE_ID = ?";
+
+        private static String deleteEmpSQL = " delete from EMPLOYEES where EMPLOYEE_ID = ? ";
 
         public static int insertEmp(EMPVO emp) {
             Connection conn = null;
@@ -250,7 +253,28 @@ class EMPVO {
 
             return emp;
         }
-
+        
+        public static int updateEmp(EMPVO emp) {
+            int cnt = 0;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            try{
+                conn = J34JDBCUtil.makeConn();
+                pstmt = conn.prepareStatement(updateEmpSQL);
+                pstmt.setString(1,emp.getFname());
+                pstmt.setString(2, emp.getLname());
+                pstmt.setString(3,emp.getEmail());
+                pstmt.setString(4,emp.getPhone());
+                pstmt.setInt(5,emp.getEmpno());
+                cnt = pstmt.executeUpdate();
+            } catch(SQLException e) {
+                System.out.println("updateEmp에서 문제 발생!");
+                System.out.println(e.getMessage());
+            } finally {
+                J34JDBCUtil.closeConn(null,pstmt,conn);
+            }
+            return cnt;
+        }
         public static int deleteEmp(int empno) {
             Connection conn = null;
             PreparedStatement pstmt = null;
