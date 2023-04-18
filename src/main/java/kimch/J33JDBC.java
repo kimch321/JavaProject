@@ -7,7 +7,16 @@ import java.util.Scanner;
 
 public class J33JDBC {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        // 일단 인터페이스를 구현하게 되면 클래스멤버로 메서드를 호출할 수 없다.
+        // 즉 인스턴스로 복제해서 사용해야 한다.
+        // 불필요한 복제를 막기 위해 singleton 패턴을 이용해서 단일 객체로 만드는 것이 좋다.
+        // EMPDAOimpl empdao = new EMPDAOimpl();
+        EMPDAO empdao = EMPDAOimpl.getInstance();
+
         EMPVO emp = new EMPVO(207, "steven","jobs","apple@app.com","515.123.8080","2002-06-07 00:00:00.000","AC_MGR",12008,0.2,101,110);
+
+
 
     }
 }
@@ -148,20 +157,31 @@ class EMPVO {
     }
 
 
-    class EMPDAOImpl {
+    class EMPDAOimpl implements EMPDAO {
         private static String insertEmpSQL = " insert into EMPLOYEES values (?,?,?,?,?, ?,?,?,?,?, ?) ";
-
         private static String selectEmpSQL =
                 " select EMPLOYEE_ID, FIRST_NAME, EMAIL, JOB_ID, DEPARTMENT_ID " +
                         " from EMPLOYEES order by EMPLOYEE_ID ";
-
         private static String selectOneEmpSQL = " select * from EMPLOYEES where EMPLOYEE_ID = ? ";
-
         private static String updateEmpSQL = "update EMPLOYEES set FIRST_NAME = ?, LAST_NAME = ?, EMAIL = ? , PHONE_NUMBER = ?WHERE EMPLOYEE_ID = ?";
-
         private static String deleteEmpSQL = " delete from EMPLOYEES where EMPLOYEE_ID = ? ";
 
-        public static int insertEmp(EMPVO emp) {
+        // singlton을 위한 변수
+        private static EMPDAO instance = null;
+
+        // 생성자로 인스턴스를 만드는 것을 금지한다.
+        private EMPDAOimpl() {
+        }
+
+        public static EMPDAO getInstance() {
+            // 객체를 한번만 만들도록 안배하는 것! 이제 getInstance메서드를 통해서만 EMPDAOimpl의 인스턴스를 만들 수 있다.
+            if(instance == null) {
+                instance = new EMPDAOimpl();
+            }
+            return instance;
+        }
+
+        public int insertEmp(EMPVO emp) {
             Connection conn = null;
             PreparedStatement pstmt = null;
             int cnt = 0;
@@ -193,7 +213,7 @@ class EMPVO {
             return cnt;
         }
 
-        public static List<EMPVO> selectEmp() {
+        public List<EMPVO> selectEmp() {
             Connection conn = null;
             PreparedStatement pstmt = null;
             ResultSet rs = null;
@@ -222,7 +242,7 @@ class EMPVO {
             return empdata;
         }
 
-        public static EMPVO selectOneEmp(int empno) {
+        public EMPVO selectOneEmp(int empno) {
             Connection conn = null;
             PreparedStatement pstmt = null;
             ResultSet rs = null;
@@ -254,7 +274,7 @@ class EMPVO {
             return emp;
         }
         
-        public static int updateEmp(EMPVO emp) {
+        public int updateEmp(EMPVO emp) {
             int cnt = 0;
             Connection conn = null;
             PreparedStatement pstmt = null;
@@ -275,7 +295,7 @@ class EMPVO {
             }
             return cnt;
         }
-        public static int deleteEmp(int empno) {
+        public int deleteEmp(int empno) {
             Connection conn = null;
             PreparedStatement pstmt = null;
             int cnt = 0;
